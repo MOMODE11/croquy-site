@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos produits | CROQUY</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="CROQUY Logo" class="logo-img">
+                <div>
+                    <h1>CROQUY</h1>
+                    <p>Le petit croquant qui rend accro !</p>
+                </div>
+            </div>
+
+          <nav>
+    <a href="index.html">Accueil</a>
+    <a href="produits.html">Nos produits</a>
+    <a href="index.html#apropos">À propos</a>
+    <a href="index.html#contact">Contact</a>
+
+    <a href="panier.html" class="panier">
+    🛒 Panier (<span id="compteur-panier">0</span>)
+</a>
+</nav>
+        </div>
+    </header>
+
+    <main class="page-produits">
+
+    <!-- BANNIERE DE PRESENTATION -->
+    <section class="banniere-produits">
+
+    <span class="surtitre">BIENVENUE DANS L'UNIVERS CROQUY</span>
+
+    <h1>Le plaisir du croquant,<br> version royale.</h1>
+
+    <p>
+        Découvrez nos créations gourmandes, préparées pour
+        transformer chaque instant en un moment de plaisir.
+    </p>
+
+    <a href="#nos-bocaux" class="bouton-banniere">
+        Découvrir nos gourmandises
+    </a>
+
+</section>
+
+<!-- CATÉGORIE : BOCAUX -->
+<section class="categorie-produits" id="nos-bocaux">
+
+    <div class="titre-categorie">
+        <span>LA COLLECTION CROQUY</span>
+        <h2>Nos bocaux gourmands</h2>
+        <p>Le plaisir CROQUY dans un format généreux.</p>
+    </div>
+
+    <div class="grille-produits">
+
+        <article class="carte-produit">
+            <div class="image-produit">
+                <img src="images/bocal_original.jpg" alt="CROQUY Original en bocal">
+            </div>
+            <h3>CROQUY Original</h3>
+            <p class="prix">3 000 FCFA <span>/ bocal</span></p>
+            <button class="bouton-produit"
+                onclick="ajouterAuPanier('CROQUY Original - Bocal', 3000)">
+                Ajouter au panier
+            </button>
+        </article>
+
+        <article class="carte-produit">
+            <div class="image-produit">
+                <img src="images/bocal_arachide.jpg" alt="CROQUY Arachides en bocal">
+            </div>
+            <h3>CROQUY Arachides</h3>
+            <p class="prix">3 000 FCFA <span>/ bocal</span></p>
+            <button class="bouton-produit"
+                onclick="ajouterAuPanier('CROQUY Arachides - Bocal', 3000)">
+                Ajouter au panier
+            </button>
+        </article>
+
+    </div>
+</section>
+
+
+<!-- CATÉGORIE : SACHETS -->
+<section class="categorie-produits" id="nos-sachets">
+
+    <div class="titre-categorie">
+        <span>LE CROQUANT AU QUOTIDIEN</span>
+        <h2>Nos sachets croustillants</h2>
+        <p>Une petite gourmandise à savourer à tout moment.</p>
+    </div>
+
+    <div class="grille-produits">
+
+        <article class="carte-produit">
+            <div class="image-produit">
+                <img src="images/croquy-original-sachet.jpg" alt="CROQUY Original en sachet">
+            </div>
+            <h3>CROQUY Original</h3>
+            <p class="prix">100 FCFA <span>/ sachet</span></p>
+            <button class="bouton-produit"
+                onclick="ajouterAuPanier('CROQUY Original - Sachet', 100)">
+                Ajouter au panier
+            </button>
+        </article>
+
+        <article class="carte-produit">
+            <div class="image-produit">
+                <img src="images/croquy-arachides-sachet.jpg" alt="CROQUY Arachides en sachet">
+            </div>
+            <h3>CROQUY Arachides</h3>
+            <p class="prix">100 FCFA <span>/ sachet</span></p>
+            <button class="bouton-produit"
+                onclick="ajouterAuPanier('CROQUY Arachides - Sachet', 100)">
+                Ajouter au panier
+            </button>
+        </article>
+
+    </div>
+</section>
+
+
+<!-- CATÉGORIE : BIDONS -->
+<section class="categorie-produits" id="nos-bidons">
+
+    <div class="titre-categorie">
+        <span>À PARTAGER SANS MODÉRATION</span>
+        <h2>Nos bidons généreux</h2>
+        <p>Encore plus de CROQUY pour prolonger le plaisir.</p>
+    </div>
+
+    <div class="grille-produits">
+
+        <article class="carte-produit">
+            <div class="image-produit">
+                <img src="images/bidon_original.jpg" alt="CROQUY Original en bidon">
+            </div>
+            <h3>CROQUY Original</h3>
+            <p class="prix">2 500 FCFA <span>/ bidon</span></p>
+            <button class="bouton-produit"
+                onclick="ajouterAuPanier('CROQUY Original - Bidon', 2500)">
+                Ajouter au panier
+            </button>
+        </article>
+
+        <article class="carte-produit">
+            <div class="image-produit">
+                <img src="images/bidon_arachide.jpg" alt="CROQUY Arachides en bidon">
+            </div>
+            <h3>CROQUY Arachides</h3>
+            <p class="prix">2 500 FCFA <span>/ bidon</span></p>
+            <button class="bouton-produit"
+                onclick="ajouterAuPanier('CROQUY Arachides - Bidon', 2500)">
+                Ajouter au panier
+            </button>
+        </article>
+
+    </div>
+</section>
+
+</main>
+
+    <footer>
+        <p>&copy; 2026 CROQUY - Tous droits réservés.</p>
+    </footer>
+
+   <script src="./script.js"></script>
+
+</body>
+</html>

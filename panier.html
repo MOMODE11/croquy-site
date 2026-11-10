@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mon panier | CROQUY</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- EN-TÊTE -->
+
+    <header>
+        <div class="navbar">
+
+            <div class="logo">
+
+                <img src="images/logo.jpg"
+                     alt="CROQUY Logo"
+                     class="logo-img">
+
+                <div>
+                    <h1>CROQUY</h1>
+                    <p>Le petit croquant qui rend accro !</p>
+                </div>
+
+            </div>
+
+            <nav>
+
+                <a href="index.html">Accueil</a>
+
+                <a href="produits.html">Nos produits</a>
+
+                <a href="index.html#apropos">À propos</a>
+
+                <a href="index.html#contact">Contact</a>
+
+                <a href="panier.html" class="panier">
+                    🛒 Panier (<span id="compteur-panier">0</span>)
+                </a>
+
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- CONTENU PRINCIPAL -->
+
+    <main>
+
+        <section class="titre-section">
+
+            <p class="surtitre">VOTRE SÉLECTION CROQUY</p>
+
+            <h2>Mon panier 🛒</h2>
+
+            <p>Retrouve ici tous tes produits préférés !</p>
+
+        </section>
+
+
+        <!-- CONTENU DU PANIER -->
+
+        <section class="panier-section">
+
+            <div id="contenu-panier">
+
+                <p>Ton panier est vide.</p>
+
+            </div>
+
+
+            <!-- RÉSUMÉ DE LA COMMANDE -->
+
+            <div class="resume-commande">
+
+                <p>
+                    Total des produits :
+
+                    <span id="total-panier">0</span> FCFA
+                </p>
+
+                <p>
+                    Frais de livraison :
+
+                    <span id="frais-livraison">0</span> FCFA
+                </p>
+
+                <h3>
+                    Total à payer :
+
+                    <span id="total-commande">0</span> FCFA
+                </h3>
+
+            </div>
+
+
+            <!-- INFORMATIONS DU CLIENT -->
+
+            <div class="formulaire-commande">
+
+                <h3>Informations de livraison</h3>
+
+                <label for="nom-client">
+                    Nom et prénom :
+                </label>
+
+                <input
+                    type="text"
+                    id="nom-client"
+                    placeholder="Ton nom complet"
+                >
+
+
+                <label for="telephone-client">
+                    Numéro de téléphone :
+                </label>
+
+                <input
+                    type="tel"
+                    id="telephone-client"
+                    placeholder="Ex : 0700000000"
+                >
+
+
+                <label for="zone-livraison">
+                    Zone de livraison :
+                </label>
+
+                <select
+                    id="zone-livraison"
+                    onchange="afficherPanier()"
+                >
+
+                    <option value="">Choisir une zone</option>
+
+                    <option value="korhogo">
+                        Korhogo-ville
+                    </option>
+
+                    <option value="proche">
+                        Villages proches
+                    </option>
+
+                    <option value="eloignee">
+                        Localités éloignées
+                    </option>
+
+                </select>
+
+
+                <label for="adresse-client">
+                    Adresse de livraison :
+                </label>
+
+                <input
+                    type="text"
+                    id="adresse-client"
+                    placeholder="Ex : Cocody, Abidjan"
+                >
+
+
+                <label for="message-client">
+                    Informations supplémentaires (facultatif) :
+                </label>
+
+                <textarea
+                    id="message-client"
+                    placeholder="Une précision concernant ta commande..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- BOUTONS -->
+
+            <button
+                class="bouton-produit"
+                onclick="viderPanier()"
+            >
+                Vider le panier
+            </button>
+
+
+            <button
+                class="bouton-whatsapp"
+                onclick="commanderSurWhatsApp()"
+            >
+                📱 Commander sur WhatsApp
+            </button>
+
+
+            <p style="margin-top: 20px;">
+
+                <a href="produits.html">
+                    ← Continuer mes achats
+                </a>
+
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- PIED DE PAGE -->
+
+    <footer>
+
+        <p>&copy; 2026 CROQUY - Tous droits réservés.</p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>

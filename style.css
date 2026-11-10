@@ -1,0 +1,2650 @@
+/* =========================================
+   CROQUY — AFFICHAGE COMPLET DES PRODUITS
+========================================= */
+
+body:has(.hero) .image-produit {
+    height: 350px;
+    width: 100%;
+    background-color: #fffaf0;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body:has(.hero) .image-produit img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    padding: 8px;
+    transition: transform 0.4s ease;
+}
+
+body:has(.hero) .carte-produit:hover .image-produit img {
+    transform: scale(1.03);
+}
+/* =========================
+   1. STYLE GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fffaf0;
+    color: #302015;
+    line-height: 1.6;
+}
+
+/* =========================
+   2. EN-TETE & LOGO
+========================= */
+
+header {
+    background-color: #241309;
+    color: #d4a72c;
+    padding: 20px;
+    border-bottom: 4px solid #d4a72c;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d4a72c;
+}
+
+.logo h1 {
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: #d4a72c;
+}
+
+.logo p {
+    font-size: 12px;
+    color: #fffaf0;
+    margin-top: 2px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav a {
+    color: #fffaf0;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #d4a72c;
+}
+
+nav .panier {
+    background-color: #d4a72c;
+    color: #241309;
+    padding: 10px 16px;
+    border-radius: 6px;
+}
+
+nav .panier:hover {
+    background-color: #fffaf0;
+    color: #241309;
+}
+
+/* =========================
+   3. CONTENU PRINCIPAL
+========================= */
+
+main {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* BANNIERE D'ACCUEIL (HERO) */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 40px 0 70px;
+    text-align: left;
+}
+
+.hero-texte {
+    flex: 1;
+}
+
+.surtitre {
+    color: #a87918;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.hero-texte h2 {
+    color: #241309;
+    font-size: 44px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.description {
+    color: #66574a;
+    font-size: 18px;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+.hero-boutons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.hero-boutons a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.bouton-principal {
+    background-color: #d4a72c;
+    color: #241309;
+}
+
+.bouton-principal:hover {
+    background-color: #b88918;
+}
+
+.bouton-secondaire {
+    border: 2px solid #241309;
+    color: #241309;
+}
+
+.bouton-secondaire:hover {
+    background-color: #241309;
+    color: #fffaf0;
+}
+
+/* VISUEL HERO */
+
+.hero-visuel {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 18px;
+    box-shadow: 0 15px 25px rgba(36, 19, 9, 0.2);
+}
+
+.badge-hero {
+    position: absolute;
+    bottom: -10px;
+    right: 10px;
+    background-color: #241309;
+    color: #d4a72c;
+    padding: 12px 20px;
+    border: 2px solid #d4a72c;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(36, 19, 9, 0.2);
+}
+
+.badge-hero p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* SECTION PRODUITS */
+
+.produits {
+    padding: 50px 0;
+}
+
+.titre-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.titre-section h2 {
+    color: #241309;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.titre-section > p:last-child {
+    color: #66574a;
+    font-size: 17px;
+}
+
+.grille-produits {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* CARTES PRODUITS — DESIGN PROFESSIONNEL */
+
+.carte-produit {
+    background: linear-gradient(to bottom, #ffffff, #fffaf0);
+    border: 1px solid #eee0c4;
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(36, 19, 9, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.carte-produit:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 14px 28px rgba(36, 19, 9, 0.16);
+}
+
+/* IMAGES DES PRODUITS */
+
+.image-produit {
+    height: 240px;
+    background-color: #f9e8b0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.image-produit img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.carte-produit:hover .image-produit img {
+    transform: scale(1.06);
+}
+
+/* NOM DU PRODUIT */
+
+.carte-produit h3 {
+    color: #241309;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+/* DESCRIPTION */
+
+.carte-produit > p:not(.prix) {
+    color: #66574a;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+/* PRIX */
+
+.prix {
+    color: #8b5a16;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* BOUTON AJOUTER AU PANIER */
+
+.bouton-produit {
+    display: inline-block;
+    width: 100%;
+    background-color: #d4a72c;
+    color: #241309;
+    text-decoration: none;
+    padding: 14px 18px;
+    border-radius: 9px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.bouton-produit:hover {
+    background-color: #b88918;
+    transform: scale(1.02);
+}
+
+.bouton-produit:active {
+    transform: scale(0.98);
+}
+
+
+/* PHOTOS DANS LES CARTES PRODUITS */
+
+.image-produit {
+    height: 240px;
+    background-color: #f9e8b0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.image-produit img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.carte-produit:hover .image-produit img {
+    transform: scale(1.05);
+}
+
+.carte-produit h3 {
+    color: #241309;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.carte-produit > p:not(.prix) {
+    color: #66574a;
+    margin-bottom: 18px;
+}
+
+.prix {
+    color: #8b5a16;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.prix span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.bouton-produit {
+    display: inline-block;
+    background-color: #d4a72c;
+    color: #241309;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.bouton-produit:hover {
+    background-color: #b88918;
+}
+
+.promotion {
+    text-align: center;
+    margin: 35px auto 0;
+    color: #8b5a16;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* PANIER D'ACHAT */
+
+.panier-section {
+    max-width: 800px;
+    margin: 60px auto 30px;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 2px solid #d4a72c;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(36, 19, 9, 0.08);
+}
+
+.panier-section h2 {
+    color: #241309;
+    margin-bottom: 25px;
+}
+
+.ligne-panier {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 15px 0;
+    border-bottom: 1px solid #e5d5b5;
+}
+
+.ligne-panier button {
+    background-color: #d4a72c;
+    color: #241309;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 14px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.total-panier {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.bouton-whatsapp {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.bouton-whatsapp:hover {
+    background-color: #1da851;
+}
+
+/* =========================
+   4. ADAPTATION AUX MOBILES
+========================= */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .logo {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav {
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 0 40px;
+    }
+
+    .hero-texte h2 {
+        font-size: 34px;
+    }
+
+    .hero-boutons {
+        justify-content: center;
+    }
+
+    .grille-produits {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   5. PIED DE PAGE
+========================= */
+
+footer {
+    background-color: #241309;
+    color: #fffaf0;
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+}
+/* =========================
+   STYLE DU PANIER CROQUY
+========================= */
+
+#contenu-panier {
+    margin-top: 20px;
+}
+
+.ligne-panier {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background-color: #fffaf0;
+    border: 1px solid #e5d5b5;
+    border-radius: 10px;
+}
+
+.ligne-panier p {
+    flex: 1;
+    margin: 0;
+    line-height: 1.7;
+    color: #302015;
+}
+
+.ligne-panier strong {
+    color: #241309;
+    font-size: 16px;
+}
+
+.ligne-panier button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+    background-color: #d4a72c;
+    color: #241309;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ligne-panier button:hover {
+    background-color: #bd9020;
+}
+
+#total-panier {
+    color: #8a5b08;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* =========================
+   FORMULAIRE DE COMMANDE
+========================= */
+
+.formulaire-commande {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fffaf0;
+    border: 1px solid #e5d5b5;
+    border-radius: 12px;
+}
+
+.formulaire-commande h3 {
+    color: #241309;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.formulaire-commande label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    color: #302015;
+    font-weight: bold;
+}
+
+.formulaire-commande input,
+.formulaire-commande textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d4a72c;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.formulaire-commande input:focus,
+.formulaire-commande textarea:focus {
+    border: 2px solid #a87913;
+}
+
+.formulaire-commande textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+.formulaire-commande select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d4a72c;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: white;
+    box-sizing: border-box;
+}
+.resume-commande {
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 600px;
+    background-color: #fffaf0;
+    border: 1px solid #d4a72c;
+    border-radius: 12px;
+}
+
+.resume-commande p {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+
+.resume-commande h3 {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #d4a72c;
+    padding-top: 15px;
+    color: #8a5b08;
+}
+/* =================================
+   6. AMELIORATION AFFICHAGE MOBILE
+================================= */
+
+@media (max-width: 768px) {
+
+    /* En-tête */
+    header {
+        padding: 15px 10px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        justify-content: center;
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    /* Contenu principal */
+    main {
+        padding: 25px 15px;
+    }
+
+    /* Bannière d'accueil */
+    .hero {
+        gap: 30px;
+    }
+
+    .hero-texte h2 {
+        font-size: 30px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .hero-image {
+        max-width: 100%;
+    }
+
+    /* Produits */
+    .grille-produits {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .carte-produit {
+        padding: 18px;
+    }
+
+    .image-produit {
+        height: 220px;
+    }
+
+    /* Panier */
+    .panier-section {
+        padding: 18px;
+        margin: 35px auto;
+    }
+
+    .ligne-panier {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* Formulaire */
+    .formulaire-commande {
+        padding: 18px;
+    }
+
+    /* Résumé de commande */
+    .resume-commande {
+        padding: 15px;
+    }
+
+}
+
+
+/* =================================
+   7. PETITS TELEPHONES
+================================= */
+
+@media (max-width: 480px) {
+
+   .logo h1 {
+    font-size: 28px;
+}
+
+.logo-img {
+    width: 65px;
+    height: 65px;
+}
+
+    nav {
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .titre-section h2 {
+        font-size: 27px;
+    }
+
+    .hero-texte h2 {
+        font-size: 26px;
+    }
+
+    .image-produit {
+        height: 190px;
+    }
+
+    .prix {
+        font-size: 21px;
+    }
+
+    .bouton-produit {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .ligne-panier {
+        justify-content: center;
+    }
+
+    .ligne-panier p {
+        flex-basis: 100%;
+        text-align: center;
+    }
+
+    .resume-commande p,
+    .resume-commande h3 {
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    .formulaire-commande input,
+    .formulaire-commande textarea,
+    .formulaire-commande select {
+        font-size: 16px;
+    }
+
+}
+/* =================================
+   NOTIFICATION CROQUY
+================================= */
+
+#notification-croquy {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #241309;
+    color: #fffaf0;
+    border-left: 5px solid #d4a72c;
+    padding: 15px 22px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(36, 19, 9, 0.2);
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#notification-croquy.notification-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Adaptation aux petits écrans */
+
+@media (max-width: 480px) {
+    #notification-croquy {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 13px;
+        text-align: center;
+        font-size: 14px;
+    }
+}
+
+/* ==========================================
+   CROQUY — DESIGN PROFESSIONNEL DU PANIER
+   ========================================== */
+
+/* Fond de la page panier */
+body:has(.panier-section) {
+    background-color: #fffaf0;
+}
+
+/* Zone principale du panier */
+.panier-section {
+    width: min(100% - 32px, 850px);
+    margin: 30px auto 60px;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #eee3d1;
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(48, 32, 21, 0.08);
+    box-sizing: border-box;
+}
+
+/* Titre de la page */
+.titre-section {
+    text-align: center;
+    padding: 35px 20px 10px;
+}
+
+.titre-section h2 {
+    color: #302015;
+    font-size: clamp(28px, 5vw, 38px);
+    margin: 10px 0;
+}
+
+.titre-section .surtitre {
+    color: #b18419;
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+/* Liste des produits dans le panier */
+#contenu-panier {
+    margin-bottom: 25px;
+}
+
+#contenu-panier > p {
+    text-align: center;
+    padding: 25px 10px;
+    color: #74685e;
+}
+
+/* Une ligne par produit */
+#contenu-panier .ligne-panier {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 18px 12px;
+    margin-bottom: 12px;
+    background-color: #fffaf0;
+    border: 1px solid #eee3d1;
+    border-radius: 14px;
+}
+
+/* Nom, quantité et prix */
+#contenu-panier .ligne-panier p {
+    flex: 1 1 220px;
+    margin: 0;
+    line-height: 1.8;
+    color: #302015;
+    overflow-wrap: anywhere;
+}
+
+#contenu-panier .ligne-panier strong {
+    font-size: 16px;
+    color: #302015;
+}
+
+/* Boutons +, - et suppression */
+#contenu-panier .ligne-panier button {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #eee3d1;
+    color: #302015;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+#contenu-panier .ligne-panier button:hover {
+    background-color: #d4a72c;
+    transform: translateY(-2px);
+}
+
+/* Résumé de la commande */
+.resume-commande {
+    margin: 25px 0;
+    padding: 22px;
+    background-color: #fffaf0;
+    border: 1px solid #ead9b9;
+    border-radius: 16px;
+}
+
+.resume-commande p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 12px 0;
+    color: #504034;
+    line-height: 1.6;
+}
+
+.resume-commande h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0 0;
+    padding-top: 18px;
+    border-top: 2px solid #e6d4ae;
+    color: #302015;
+    font-size: 20px;
+}
+
+#total-commande {
+    color: #9b7110;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+/* Formulaire de livraison */
+.formulaire-commande {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.formulaire-commande h3 {
+    margin-bottom: 12px;
+    color: #302015;
+    font-size: 22px;
+}
+
+.formulaire-commande label {
+    margin-top: 8px;
+    color: #493426;
+    font-weight: 600;
+}
+
+.formulaire-commande input,
+.formulaire-commande select,
+.formulaire-commande textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #d9cbb8;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #302015;
+    font: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulaire-commande textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.formulaire-commande input:focus,
+.formulaire-commande select:focus,
+.formulaire-commande textarea:focus {
+    outline: none;
+    border-color: #d4a72c;
+    box-shadow: 0 0 0 3px rgba(212, 167, 44, 0.18);
+}
+
+/* Boutons principaux */
+.panier-section > .bouton-produit,
+.panier-section > .bouton-whatsapp {
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 14px;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 12px;
+    font: inherit;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.panier-section > .bouton-produit {
+    background-color: #eee3d1;
+    color: #302015;
+}
+
+.panier-section > .bouton-produit:hover {
+    background-color: #e2d0b3;
+    transform: translateY(-2px);
+}
+
+.panier-section > .bouton-whatsapp {
+    background-color: #246b3b;
+    color: #ffffff;
+}
+
+.panier-section > .bouton-whatsapp:hover {
+    background-color: #19552d;
+    transform: translateY(-2px);
+}
+
+/* Lien pour continuer les achats */
+.panier-section > p a {
+    color: #8b6511;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.panier-section > p a:hover {
+    text-decoration: underline;
+}
+
+/* Adaptation aux téléphones */
+@media (max-width: 600px) {
+
+    .panier-section {
+        width: calc(100% - 20px);
+        margin: 20px auto 35px;
+        padding: 16px;
+        border-radius: 15px;
+    }
+
+    .titre-section {
+        padding: 25px 12px 5px;
+    }
+
+    #contenu-panier .ligne-panier {
+        gap: 8px;
+        padding: 14px 10px;
+    }
+
+    #contenu-panier .ligne-panier p {
+        flex-basis: 100%;
+    }
+
+    .resume-commande {
+        padding: 16px;
+    }
+
+    .resume-commande h3 {
+        font-size: 18px;
+    }
+
+    #total-commande {
+        font-size: 22px;
+    }
+
+    .formulaire-commande h3 {
+        font-size: 20px;
+    }
+}
+/* =========================================
+   CROQUY ROYAL — PANIER PREMIUM
+   Chocolat • Orange • Or • Crème
+   ========================================= */
+
+body:has(.panier-section) {
+    margin: 0;
+    background:
+        radial-gradient(ellipse at top right, rgba(255, 122, 24, 0.12), transparent 35%),
+        #fff8ed;
+    color: #32170f;
+}
+
+/* EN-TÊTE */
+
+body:has(.panier-section) header {
+    background: #27110c;
+    border-bottom: 3px solid #ff851b;
+    box-shadow: 0 8px 25px rgba(39, 17, 12, 0.18);
+}
+
+body:has(.panier-section) .navbar {
+    padding: 16px 5%;
+}
+
+body:has(.panier-section) .logo h1 {
+    color: #ff9a35;
+    font-size: 32px;
+    letter-spacing: 3px;
+    font-weight: 900;
+}
+
+body:has(.panier-section) .logo p {
+    color: #fff0dc;
+}
+
+body:has(.panier-section) nav a {
+    color: #fff4e7;
+    transition: color 0.25s, background 0.25s;
+}
+
+body:has(.panier-section) nav a:hover {
+    color: #ff9a35;
+}
+
+/* GRAND TITRE */
+
+body:has(.panier-section) .titre-section {
+    max-width: 1050px;
+    margin: 35px auto 25px;
+    padding: 45px 25px;
+    text-align: left;
+    box-sizing: border-box;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 90% 20%, rgba(255, 154, 53, 0.25), transparent 30%),
+        linear-gradient(125deg, #27110c, #522317);
+    color: #fff4e7;
+    position: relative;
+    overflow: hidden;
+}
+
+body:has(.panier-section) .titre-section::after {
+    content: "C";
+    position: absolute;
+    right: 35px;
+    top: -65px;
+    color: rgba(255, 154, 53, 0.12);
+    font-size: 260px;
+    font-weight: 900;
+    line-height: 1;
+    pointer-events: none;
+}
+
+body:has(.panier-section) .titre-section .surtitre {
+    position: relative;
+    z-index: 1;
+    color: #ff9a35;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+body:has(.panier-section) .titre-section h2 {
+    position: relative;
+    z-index: 1;
+    margin: 15px 0;
+    color: #fff4e7;
+    font-size: clamp(34px, 6vw, 58px);
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+}
+
+body:has(.panier-section) .titre-section > p:last-child {
+    position: relative;
+    z-index: 1;
+    color: #f2d9c3;
+    font-size: 16px;
+}
+
+/* CARTE PRINCIPALE */
+
+body:has(.panier-section) .panier-section {
+    width: min(1050px, calc(100% - 40px));
+    margin: 30px auto 70px;
+    padding: 32px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #f0dfcb;
+    border-radius: 24px;
+    box-shadow: 0 18px 55px rgba(64, 30, 16, 0.09);
+}
+
+/* PRODUITS DU PANIER */
+
+body:has(.panier-section) #contenu-panier {
+    margin-bottom: 30px;
+}
+
+body:has(.panier-section) #contenu-panier .ligne-panier {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    padding: 22px;
+    border: 1px solid #f1e2d0;
+    border-left: 5px solid #ff851b;
+    border-radius: 16px;
+    background: linear-gradient(110deg, #fffaf3, #ffffff);
+    box-shadow: 0 5px 18px rgba(64, 30, 16, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+body:has(.panier-section) #contenu-panier .ligne-panier:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(64, 30, 16, 0.09);
+}
+
+body:has(.panier-section) #contenu-panier .ligne-panier p {
+    flex: 1 1 230px;
+    margin: 0;
+    color: #68412e;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+body:has(.panier-section) #contenu-panier .ligne-panier strong {
+    color: #32170f;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+/* CONTRÔLES DES QUANTITÉS */
+
+body:has(.panier-section) #contenu-panier .ligne-panier button {
+    min-width: 43px;
+    min-height: 43px;
+    padding: 10px;
+    border: 1px solid #f0d7bd;
+    border-radius: 12px;
+    background: #fff0df;
+    color: #512314;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+body:has(.panier-section) #contenu-panier .ligne-panier button:hover {
+    background: #ff851b;
+    color: #ffffff;
+    border-color: #ff851b;
+}
+
+/* RÉSUMÉ DE COMMANDE */
+
+body:has(.panier-section) .resume-commande {
+    margin: 30px 0;
+    padding: 28px;
+    border: none;
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at top right, rgba(255, 154, 53, 0.13), transparent 35%),
+        #fff5e8;
+    box-shadow: inset 0 0 0 1px #f0dfcb;
+}
+
+body:has(.panier-section) .resume-commande p {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 15px 0;
+    color: #68412e
+    }
+/* =========================================
+   CROQUY ROYAL — PANIER EN DEUX COLONNES
+   ========================================= */
+
+@media (min-width: 900px) {
+    body:has(.panier-section) .panier-section {
+        display: grid;
+        grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.9fr);
+        align-items: start;
+        gap: 28px;
+    }
+
+    /* Produits à gauche */
+    body:has(.panier-section) #contenu-panier {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    /* Résumé à droite */
+    body:has(.panier-section) .resume-commande {
+        grid-column: 2;
+        grid-row: 1;
+        position:static;
+        top: 20px;
+        margin-top: 0;
+    }
+
+    /* Formulaire sous les produits */
+    body:has(.panier-section) .formulaire-commande {
+        grid-column: 1;
+        grid-row: 2;
+        margin-top: 0;
+    }
+
+    /* Boutons sous le résumé */
+    body:has(.panier-section) .panier-section > .bouton-produit {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+    }
+
+    body:has(.panier-section) .panier-section > .bouton-whatsapp {
+        grid-column: 2;
+        grid-row: 3;
+        align-self: start;
+        margin-top: -15px;
+    }
+
+    body:has(.panier-section) .panier-section > p {
+        grid-column: 1;
+        grid-row: 3;
+    }
+}
+
+/* Préparation des images des produits */
+.image-produit-panier {
+    width: 100px;
+    height: 100px;
+    flex: 0 0 100px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid #f0dfcb;
+    background: #fff5e8;
+}
+
+/* Mise en page sur téléphone */
+@media (max-width: 899px) {
+    body:has(.panier-section) .panier-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body:has(.panier-section) .resume-commande {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-produit-panier {
+        width: 76px;
+        height: 76px;
+        flex-basis: 76px;
+    }
+}
+/* PHOTOS DES PRODUITS DANS LE PANIER */
+.image-produit-panier {
+width: 90px;
+height: 90px;
+min-width: 90px;
+max-width: 90px;
+object-fit: cover;
+border-radius: 12px;
+border: 2px solid #d4a72c;
+display: block;
+flex-shrink: 0;
+}
+/* ==========================================
+   CROQUY ROYAL — PAGE D'ACCUEIL PREMIUM
+   ========================================== */
+
+/* Fond général */
+body:has(.hero) {
+    background: #fff8ed;
+    color: #32170f;
+}
+
+/* EN-TÊTE */
+body:has(.hero) header {
+    background: linear-gradient(120deg, #1d0d08, #432015);
+    border-bottom: 3px solid #d4a72c;
+    padding: 18px 25px;
+    box-shadow: 0 8px 25px rgba(36, 19, 9, 0.15);
+}
+
+body:has(.hero) .navbar {
+    max-width: 1250px;
+}
+
+body:has(.hero) .logo-img {
+    width: 72px;
+    height: 72px;
+    border: 3px solid #d4a72c;
+    box-shadow: 0 0 15px rgba(212, 167, 44, 0.3);
+}
+
+body:has(.hero) .logo h1 {
+    color: #e5b94b;
+    font-family: Georgia, serif;
+    font-size: 32px;
+    letter-spacing: 4px;
+}
+
+body:has(.hero) nav a {
+    transition: 0.3s;
+}
+
+body:has(.hero) nav a:hover {
+    color: #e5b94b;
+}
+
+/* BOUTON COMMANDER */
+body:has(.hero) nav .panier {
+    background: linear-gradient(135deg, #f2d27a, #c28b1b);
+    color: #241309;
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(212, 167, 44, 0.2);
+}
+
+body:has(.hero) nav .panier:hover {
+    background: #fff0c2;
+    transform: translateY(-2px);
+}
+
+/* CONTENU PRINCIPAL */
+body:has(.hero) main {
+    max-width: 1250px;
+    padding: 55px 25px;
+}
+
+/* GRANDE BANNIÈRE */
+body:has(.hero) .hero {
+    min-height: 480px;
+    padding: 45px;
+    gap: 50px;
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(212, 167, 44, 0.16), transparent 35%),
+        linear-gradient(120deg, #fff2df, #f6dfbd);
+    box-shadow: 0 15px 40px rgba(36, 19, 9, 0.08);
+}
+
+body:has(.hero) .hero-texte {
+    padding: 15px;
+}
+
+body:has(.hero) .hero-texte .surtitre {
+    color: #a66b12;
+    letter-spacing: 3px;
+    font-size: 13px;
+}
+
+body:has(.hero) .hero-texte h2 {
+    color: #32170f;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.15;
+    margin-bottom: 25px;
+}
+
+body:has(.hero) .description {
+    color: #684c3c;
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+/* IMAGE PRINCIPALE */
+body:has(.hero) .hero-image {
+    width: 100%;
+    max-width: 470px;
+    height: 390px;
+    object-fit: cover;
+    border: 5px solid #fff;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(36, 19, 9, 0.2);
+}
+
+/* BADGE SUR LA PHOTO */
+body:has(.hero) .badge-hero {
+    background: #32170f;
+    color: #f2cc69;
+    border: 2px solid #d4a72c;
+    border-radius: 15px;
+    padding: 16px 25px;
+}
+
+/* BOUTONS DE LA BANNIÈRE */
+body:has(.hero) .bouton-principal {
+    background: linear-gradient(135deg, #eac45d, #bd861a);
+    color: #241309;
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 7px 18px rgba(166, 107, 18, 0.2);
+}
+
+body:has(.hero) .bouton-principal:hover {
+    background: #f4d98d;
+    transform: translateY(-3px);
+}
+
+body:has(.hero) .bouton-secondaire {
+    border: 2px solid #32170f;
+    border-radius: 30px;
+    padding: 13px 22px;
+}
+
+body:has(.hero) .bouton-secondaire:hover {
+    background: #32170f;
+    color: #fff8ed;
+}
+
+/* SECTION PRODUITS */
+body:has(.hero) .produits {
+    padding: 90px 0 55px;
+}
+
+body:has(.hero) .titre-section h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(30px, 4vw, 43px);
+    color: #32170f;
+}
+
+body:has(.hero) .titre-section .surtitre {
+    color: #b18419;
+    letter-spacing: 4px;
+}
+
+/* CARTES PRODUITS */
+body:has(.hero) .carte-produit {
+    background: #fff;
+    border: 1px solid #ead8bb;
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(36, 19, 9, 0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+body:has(.hero) .carte-produit:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 18px 35px rgba(36, 19, 9, 0.14);
+}
+
+body:has(.hero) .image-produit {
+    height: 280px;
+    border-radius: 16px;
+    background: #fff2df;
+}
+
+body:has(.hero) .carte-produit h3 {
+    color: #32170f;
+    font-family: Georgia, serif;
+    font-size: 25px;
+    margin-top: 15px;
+}
+
+body:has(.hero) .carte-produit > p {
+    color: #765d4c;
+    line-height: 1.8;
+}
+
+/* PIED DE PAGE */
+body:has(.hero) footer {
+    background: linear-gradient(120deg, #1d0d08, #432015);
+    color: #f2d9a0;
+    border-top: 3px solid #d4a72c;
+    padding: 30px 15px;
+    margin-top: 50px;
+}
+
+/* ADAPTATION AUX TÉLÉPHONES */
+@media (max-width: 768px) {
+
+    body:has(.hero) main {
+        padding: 25px 15px;
+    }
+
+    body:has(.hero) .hero {
+        padding: 25px 15px;
+        gap: 30px;
+    }
+
+    body:has(.hero) .hero-texte h2 {
+        font-size: 36px;
+    }
+
+    body:has(.hero) .hero-image {
+        height: 280px;
+    }
+
+    body:has(.hero) .hero-boutons {
+        flex-direction: column;
+    }
+
+    body:has(.hero) .hero-boutons a {
+        text-align: center;
+    }
+
+    body:has(.hero) .produits {
+        padding-top: 55px;
+    }
+}
+/* ADAPTATION DE CROQUY AUX TELEPHONES */
+@media screen and (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 15px;
+    }
+
+    .hero-texte {
+        width: 100%;
+    }
+
+    .hero-visuel {
+        width: 100%;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+    }
+
+    .hero-boutons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .grille-produits {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .carte-produit {
+        width: 100%;
+    }
+}
+/* =================================
+   CROQUY ROYAL - PAGE PRODUITS
+================================= */
+
+body:has(.page-produits) {
+    background: #fff8e9;
+}
+
+/* TITRE DE LA PAGE */
+
+.page-produits .titre-section {
+    padding: 65px 20px 35px;
+    text-align: center;
+}
+
+.page-produits .titre-section h2 {
+    font-size: 38px;
+    color: #4a210e;
+    margin: 12px 0;
+}
+
+.page-produits .titre-section > p:last-child {
+    color: #795b42;
+    font-size: 17px;
+}
+
+/* GRILLE DES PRODUITS */
+
+.page-produits .grille-produits {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 25px 70px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* CARTES PRODUITS */
+
+.page-produits .carte-produit {
+    background: linear-gradient(145deg, #ffffff, #fff1d2);
+    border: 1px solid #e8c77c;
+    border-radius: 20px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(65, 35, 10, 0.10);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-produits .carte-produit:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(65, 35, 10, 0.18);
+}
+
+/* IMAGES */
+
+.page-produits .image-produit {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #fff;
+    margin-bottom: 18px;
+}
+
+.page-produits .image-produit img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.page-produits .carte-produit:hover .image-produit img {
+    transform: scale(1.07);
+}
+
+/* NOM ET DESCRIPTION */
+
+.page-produits .carte-produit h3 {
+    color: #54270f;
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.page-produits .carte-produit p {
+    color: #72533b;
+    line-height: 1.6;
+}
+
+/* PRIX */
+
+.page-produits .carte-produit .prix {
+    color: #a66b08;
+    font-size: 23px;
+    font-weight: bold;
+    margin: 18px 0;
+}
+
+.page-produits .carte-produit .prix span {
+    font-size: 14px;
+    font-weight: normal;
+    color: #795b42;
+}
+
+/* BOUTONS */
+
+.page-produits .bouton-produit {
+    background: linear-gradient(135deg, #d4a72c, #f2cc67);
+    color: #351909;
+    border: none;
+    border-radius: 30px;
+    padding: 13px 22px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.page-produits .bouton-produit:hover {
+    background: #4a210e;
+    color: white;
+    transform: scale(1.04);
+}
+
+/* VERSION MOBILE */
+
+@media screen and (max-width: 768px) {
+
+    .page-produits .titre-section h2 {
+        font-size: 28px;
+    }
+
+    .page-produits .grille-produits {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 22px;
+    }
+
+    .page-produits .image-produit {
+        height: 250px;
+    }
+}
+/* ==================================
+   CROQUY — PAGE PRODUITS LUXE ROYAL
+================================== */
+
+body:has(.page-produits) {
+    background: #1b0d08;
+    color: #fff8e9;
+}
+
+/* Conteneur principal */
+.page-produits {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 0 80px;
+    background: #1b0d08;
+}
+
+/* Bannière principale */
+.page-produits .banniere-produits {
+    position: relative;
+    overflow: hidden;
+    padding: 85px 20px;
+    margin-bottom: 75px;
+    text-align: center;
+    background:
+        radial-gradient(circle at top right, #68401e 0, transparent 38%),
+        linear-gradient(135deg, #160904, #3b1b0d, #160904);
+    border-bottom: 2px solid #d6a943;
+}
+
+.page-produits .banniere-produits::before {
+    content: "CROQUY";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(70px, 15vw, 170px);
+    font-weight: 900;
+    letter-spacing: 15px;
+    color: rgba(255, 255, 255, 0.035);
+    pointer-events: none;
+}
+
+.page-produits .banniere-produits h1 {
+    position: relative;
+    margin-bottom: 18px;
+    color: #f4cb70;
+    font-size: clamp(32px, 5vw, 55px);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.page-produits .banniere-produits p {
+    position: relative;
+    max-width: 650px;
+    margin: auto;
+    color: #f8e9d0;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/* Sections des catégories */
+.page-produits .categorie-produits {
+    max-width: 1200px;
+    margin: 0 auto 85px;
+    padding: 0 25px;
+}
+
+.page-produits .entete-categorie {
+    margin-bottom: 30px;
+    text-align: left;
+    border-left: 4px solid #d6a943;
+    padding-left: 20px;
+}
+
+.page-produits .entete-categorie span {
+    color: #e4b64f;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.page-produits .entete-categorie h2 {
+    margin: 8px 0;
+    color: #fff0d2;
+    font-size: clamp(27px, 4vw, 38px);
+}
+
+.page-produits .entete-categorie p {
+    margin: 0;
+    color: #cbb9a4;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Grille des produits */
+.page-produits .grille-produits {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+/* Cartes */
+.page-produits .carte-produit {
+    position: relative;
+    overflow: hidden;
+    padding: 18px;
+    background: linear-gradient(145deg, #fffaf0, #f1e4ce);
+    border: 1px solid #d6a943;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-produits .carte-produit:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 35px rgba(214, 169, 67, 0.2);
+}
+
+/* Images */
+.page-produits .image-produit {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    padding: 12px;
+    background: #fffdf7;
+    border-radius: 12px;
+}
+
+/* Nom du produit */
+.page-produits .carte-produit h3 {
+    margin: 20px 0 10px;
+    color: #3b1b0d;
+    font-size: 23px;
+}
+
+/* Description */
+.page-produits .carte-produit p {
+    color: #73523d;
+    line-height: 1.7;
+}
+
+/* Prix */
+.page-produits .carte-produit .prix {
+    display: block;
+    margin: 18px 0;
+    color: #9b6812;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+/* Bouton */
+.page-produits .bouton-produit {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #f0cb70, #c18a25);
+    color: #2a1308;
+    border: 1px solid #b47b19;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.page-produits .bouton-produit:hover {
+    background: #3b1b0d;
+    color: #f4cb70;
+    border-color: #d6a943;
+}
+
+/* Adaptation aux tablettes */
+@media (max-width: 900px) {
+    .page-produits .grille-produits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .page-produits .image-produit {
+        height: 220px;
+    }
+}
+
+/* Adaptation aux téléphones */
+@media (max-width: 600px) {
+    .page-produits .banniere-produits {
+        padding: 65px 18px;
+    }
+
+    .page-produits .categorie-produits {
+        padding: 0 15px;
+        margin-bottom: 60px;
+    }
+
+    .page-produits .grille-produits {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .page-produits .image-produit {
+        height: 240px;
+    }
+
+    .page-produits .entete-categorie {
+        padding-left: 14px;
+    }
+}
+/* =====================================
+   CROQUY — LUXE ROYAL CRÈME ET OR
+===================================== */
+
+body:has(.page-produits) {
+    background: #fffaf0;
+    color: #382014;
+}
+
+.page-produits {
+    background: #fffaf0;
+}
+
+/* Grande bannière */
+.page-produits .banniere-produits {
+    background:
+        radial-gradient(circle at top right, #f2dfb5, transparent 45%),
+        linear-gradient(135deg, #fffaf0, #f1e2c5);
+    border-bottom: 2px solid #d6a943;
+}
+
+.page-produits .banniere-produits::before {
+    color: rgba(120, 75, 25, 0.05);
+}
+
+.page-produits .banniere-produits h1 {
+    color: #382014;
+}
+
+.page-produits .banniere-produits p {
+    color: #73523d;
+}
+
+/* Titres des catégories */
+.page-produits .entete-categorie {
+    border-left-color: #c99a35;
+}
+
+.page-produits .entete-categorie span {
+    color: #a97818;
+}
+
+.page-produits .entete-categorie h2 {
+    color: #382014;
+}
+
+.page-produits .entete-categorie p {
+    color: #73523d;
+}
+
+/* Fond des cartes */
+.page-produits .carte-produit {
+    background: #ffffff;
+    border: 1px solid #e6d3ad;
+    box-shadow: 0 8px 25px rgba(75, 45, 20, 0.09);
+}
+
+.page-produits .carte-produit:hover {
+    box-shadow: 0 15px 30px rgba(150, 105, 30, 0.17);
+}
+
+/* Images */
+.page-produits .image-produit {
+    background: #fffaf0;
+}
+
+/* Textes */
+.page-produits .carte-produit h3 {
+    color: #382014;
+}
+
+.page-produits .carte-produit p {
+    color: #73523d;
+}
+
+/* Prix */
+.page-produits .carte-produit .prix {
+    color: #a97818;
+}
+
+/* Boutons dorés */
+.page-produits .bouton-produit {
+    background: linear-gradient(135deg, #f5d98e, #d6a943);
+    color: #382014;
+    border: 1px solid #c18a25;
+}
+
+.page-produits .bouton-produit:hover {
+    background: #382014;
+    color: #f5d98e;
+    border-color: #d6a943;
+}
+/* =================================
+   CARTES PRODUITS — VERSION PREMIUM
+================================= */
+
+.page-produits .carte-produit {
+    position: relative;
+    padding: 15px;
+    background: #ffffff;
+    border: 1px solid #dfc58d;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(56, 32, 20, 0.10);
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+.page-produits .carte-produit::before {
+    content: "";
+    display: block;
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, #9b6812, #f5d98e, #9b6812);
+}
+
+.page-produits .carte-produit:hover {
+    transform: translateY(-10px);
+    border-color: #c18a25;
+    box-shadow: 0 18px 35px rgba(56, 32, 20, 0.18);
+}
+
+.page-produits .image-produit {
+    height: 280px;
+    padding: 15px;
+    background: linear-gradient(145deg, #fffaf0, #f5ead5);
+    border-radius: 15px;
+    transition: transform 0.4s ease;
+}
+
+.page-produits .carte-produit:hover .image-produit {
+    transform: scale(1.03);
+}
+
+.page-produits .carte-produit h3 {
+    margin-top: 22px;
+    color: #382014;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.page-produits .carte-produit p {
+    min-height: 45px;
+    color: #80634d;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.page-produits .carte-produit .prix {
+    display: inline-block;
+    padding: 10px 22px;
+    margin: 15px 0 20px;
+    background: #fff5dc;
+    border: 1px solid #e2c47e;
+    border-radius: 30px;
+    color: #986511;
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.page-produits .bouton-produit {
+    padding: 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #eac66e, #c18a25);
+    color: #382014;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 5px 12px rgba(160, 110, 25, 0.20);
+}
+
+.page-produits .bouton-produit:hover {
+    background: #382014;
+    color: #f5d98e;
+    transform: scale(1.02);
+}
+/* BANNIÈRE CROQUY */
+
+.page-produits .banniere-produits {
+    padding: 85px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #fffaf0, #f1dfbb);
+    border-bottom: 2px solid #d6a943;
+}
+
+.page-produits .surtitre {
+    display: block;
+    margin-bottom: 20px;
+    color: #a97818;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.page-produits .banniere-produits h1 {
+    margin-bottom: 20px;
+    color: #382014;
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 5vw, 55px);
+    line-height: 1.2;
+}
+
+.page-produits .banniere-produits p {
+    max-width: 650px;
+    margin: 0 auto 30px;
+    color: #73523d;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.page-produits .bouton-banniere {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #f5d98e, #c18a25);
+    color: #382014;
+    border: 1px solid #c18a25;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.page-produits .bouton-banniere:hover {
+    background: #382014;
+    color: #f5d98e;
+    transform: translateY(-3px);
+}
+/* ESPACE DESCRIPTION — ÉCRIN ROYAL CROQUY */
+
+.page-produits .carte-produit p {
+    background: linear-gradient(
+        145deg,
+        #d5ceba,
+        #f7ecd4
+    );
+
+    border: 1px solid #dfc58d;
+    border-radius: 14px;
+
+    padding: 20px;
+    margin: 18px 0;
+
+    box-shadow:
+        inset 0 1px 4px rgba(255, 255, 255, 0.9),
+        0 4px 12px rgba(126, 85, 30, 0.08);
+
+    position: relative;
+}
+
+/* Fine décoration dorée */
+.page-produits .carte-produit p::before {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 2px;
+    margin: 0 auto 12px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #c99a35,
+        transparent
+    );
+}
+
+/* Effet au survol */
+.page-produits .carte-produit:hover p {
+    border-color: #c99a35;
+    box-shadow:
+        inset 0 1px 5px rgba(255, 255, 255, 0.9),
+        0 6px 16px rgba(126, 85, 30, 0.13);
+}
+/* =========================================
+   ACCUEIL CROQUY — CARTES PRODUITS ÉLÉGANTES
+========================================= */
+
+body:has(.hero) .produits .grille-produits {
+    max-width: 960px;
+    gap: 35px;
+    align-items: stretch;
+}
+
+body:has(.hero) .produits .carte-produit {
+    padding: 20px 20px 25px;
+    background: #fff;
+    border: 1px solid #ead9b8;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(48, 32, 21, 0.07);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+body:has(.hero) .produits .carte-produit:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 38px rgba(48, 32, 21, 0.13);
+}
+
+/* Images */
+body:has(.hero) .produits .image-produit {
+    width: 100%;
+    height: 290px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: linear-gradient(145deg, #fffaf0, #f3e5cb);
+    border: 1px solid #f0e4cf;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body:has(.hero) .produits .image-produit img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+body:has(.hero) .produits .carte-produit:hover .image-produit img {
+    transform: scale(1.05);
+}
+
+/* Badge */
+body:has(.hero) .produits .badge-produit {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 6px 13px;
+    border-radius: 30px;
+    background: #fff4d9;
+    color: #98701e;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+/* Titres */
+body:has(.hero) .produits .carte-produit h3 {
+    margin: 5px 0 12px;
+    color: #32170f;
+    font-family: Georgia, serif;
+    font-size: 26px;
+}
+
+/* Descriptions */
+body:has(.hero) .produits .carte-produit > p {
+    min-height: 85px;
+    margin-bottom: 22px;
+    color: #806b59;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* Boutons */
+body:has(.hero) .produits .carte-produit .bouton-produit {
+    width: 100%;
+    margin-top: auto;
+    padding: 14px 18px;
+    background: #32170f;
+    color: #f5d98e;
+    border: 1px solid #32170f;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+body:has(.hero) .produits .carte-produit .bouton-produit:hover {
+    background: linear-gradient(135deg, #f5d98e, #d4a72c);
+    color: #32170f;
+    border-color: #d4a72c;
+}
+
+/* Téléphones */
+@media (max-width: 768px) {
+    body:has(.hero) .produits .grille-produits {
+        grid-template-columns: 1fr;
+        max-width: 430px;
+        gap: 25px;
+    }
+
+    body:has(.hero) .produits .image-produit {
+        height: 250px;
+    }
+}
+/* FOND RAFFINÉ DES CARTES PRODUITS */
+
+body:has(.hero) .produits .carte-produit {
+    background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #fffaf0 65%,
+        #f8edda 100%
+    );
+
+    border: 1px solid #e8d5ae;
+    border-radius: 25px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 8px 20px rgba(48, 32, 21, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    transition: all 0.35s ease;
+}
+
+body:has(.hero) .produits .carte-produit:hover {
+    border-color: #d4a72c;
+
+    box-shadow:
+        0 15px 35px rgba(48, 32, 21, 0.12),
+        0 0 0 3px rgba(212, 167, 44, 0.08);
+
+    transform: translateY(-6px);
+}
+/* =====================================
+   CROQUY — PAGE PRODUITS PREMIUM
+===================================== */
+
+/* ESPACEMENT DES CATÉGORIES */
+.page-produits .categorie-produits {
+    max-width: 1150px;
+    margin: 75px auto;
+    padding: 0 25px;
+    scroll-margin-top: 30px;
+}
+
+/* TITRES DES CATÉGORIES */
+.page-produits .titre-categorie {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.page-produits .titre-categorie > span {
+    color: #b28a2e;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.page-produits .titre-categorie h2 {
+    color: #302015;
+    font-family: Georgia, serif;
+    font-size: 32px;
+    margin: 12px 0;
+}
+
+.page-produits .titre-categorie p {
+    color: #806b59;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* GRILLE DES PRODUITS */
+.page-produits .grille-produits {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 35px;
+}
+
+/* CARTES */
+.page-produits .carte-produit {
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #fffaf0,
+        #f8edda
+    );
+    border: 1px solid #e8d5ae;
+    border-radius: 24px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(48, 32, 21, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-produits .carte-produit:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 16px 35px rgba(48, 32, 21, 0.13);
+}
+
+/* PHOTOS */
+.page-produits .carte-produit .image-produit {
+    width: 100%;
+    height: 270px;
+    background: #fffaf0;
+    border-radius: 17px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.page-produits .carte-produit .image-produit img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.page-produits .carte-produit:hover .image-produit img {
+    transform: scale(1.05);
+}
+
+/* NOM DES PRODUITS */
+.page-produits .carte-produit h3 {
+    color: #302015;
+    font-family: Georgia, serif;
+    font-size: 21px;
+    margin: 12px 0;
+}
+
+/* PRIX */
+.page-produits .carte-produit .prix {
+    color: #a77c20;
+    font-size: 23px;
+    font-weight: 800;
+    margin: 15px 0 22px;
+}
+
+.page-produits .carte-produit .prix span {
+    color: #806b59;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* BOUTONS */
+.page-produits .carte-produit .bouton-produit {
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 18px;
+    background: #302015;
+    color: #fffaf0;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.page-produits .carte-produit .bouton-produit:hover {
+    background: #b28a2e;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ADAPTATION AUX TÉLÉPHONES */
+@media (max-width: 650px) {
+
+    .page-produits .categorie-produits {
+        margin: 50px auto;
+        padding: 0 15px;
+    }
+
+    .page-produits .titre-categorie h2 {
+        font-size: 25px;
+    }
+
+    .page-produits .grille-produits {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .page-produits .carte-produit .image-produit {
+        height: 250px;
+    }
+}
