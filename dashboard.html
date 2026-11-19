@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tableau de bord CROQUY</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fffaf0;
+            color: #302015;
+            margin: 0;
+            padding: 25px;
+        }
+
+        header {
+            background: #302015;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        input, button, select {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            background: #d4a72c;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #302015;
+            color: white;
+        }
+
+        #message {
+            margin-top: 15px;
+        }
+
+/* FENETRE DES DETAILS DE COMMANDE */
+
+.fenetre-details {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.contenu-details {
+    background: #fffaf0;
+    width: 100%;
+    max-width: 650px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.contenu-details h2 {
+    color: #302015;
+    border-bottom: 2px solid #d4a72c;
+    padding-bottom: 12px;
+}
+
+.fermer-details {
+    float: right;
+    background: #302015;
+    color: white;
+}
+
+.table-details th {
+    background: #302015;
+    color: white;
+}
+
+.total-details {
+    background: #302015;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* ADAPTATION DU TABLEAU DE BORD AUX TELEPHONES */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    header {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    section {
+        padding: 12px;
+        margin-top: 15px;
+    }
+
+    form input {
+        width: 90%;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 12px;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+    .contenu-details {
+        padding: 15px;
+        width: 95%;
+        box-sizing: border-box;
+    }
+
+}
+.info-mobile {
+    display: none;
+    background: #fff3cd;
+    color: #302015;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .info-mobile {
+        display: block;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>CROQUY</h1>
+    <h2>Tableau de bord</h2>
+
+    <p id="utilisateur">Vérification du compte...</p>
+
+    <button onclick="deconnexion()">Déconnexion</button>
+</header>
+
+<!-- GESTION DES ZONES -->
+
+<section>
+
+    <h2>Gestion des zones de livraison</h2>
+
+    <h3>Ajouter une zone</h3>
+
+    <form id="formZone">
+
+        <input
+            type="text"
+            id="nomZone"
+            placeholder="Nom de la zone"
+            required
+        >
+
+        <input
+            type="number"
+            id="fraisZone"
+            placeholder="Frais en FCFA"
+            min="0"
+            required
+        >
+
+        <button type="submit">Ajouter la zone</button>
+
+    </form>
+
+    <h3>Zones existantes</h3>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Zone</th>
+                <th>Frais (FCFA)</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="listeZones"></tbody>
+
+    </table>
+
+    <p id="message"></p>
+
+</section>
+
+<!-- GESTION DES PRODUITS -->
+
+<section id="sectionProduits">
+
+    <h2>Gestion des produits et des stocks</h2>
+
+    <h3>Ajouter un produit</h3>
+
+    <form id="formProduit">
+
+        <input type="text" id="nomProduit"
+            placeholder="Nom du produit" required>
+
+        <input type="text" id="referenceProduit"
+            placeholder="Référence" required>
+
+        <input type="number" id="prixProduit"
+            placeholder="Prix en FCFA" min="0" required>
+
+        <input type="number" id="stockProduit"
+            placeholder="Quantité en stock" min="0" required>
+
+        <br>
+
+        <textarea id="descriptionProduit"
+            placeholder="Description du produit"
+            rows="3" required></textarea>
+
+        <br>
+
+        <button type="submit">Ajouter le produit</button>
+
+    </form>
+
+    <h3>Produits enregistrés</h3>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Référence</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                <th>Actif</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="listeProduits"></tbody>
+
+    </table>
+
+</section>
+
+<!-- GESTION DES COMMANDES -->
+
+<section>
+
+    <h2>Gestion des commandes</h2>
+    
+    <p class="info-mobile">
+    💡 Sur téléphone, fais glisser le tableau vers la gauche ou la droite pour consulter toutes les informations des commandes.
+</p>
+    <button onclick="chargerCommandes()">
+        Actualiser les commandes
+    </button>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Total</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="listeCommandes"></tbody>
+
+    </table>
+
+</section>
+
+<!-- FENETRE DES DETAILS DE COMMANDE -->
+
+<div id="fenetreDetails" class="fenetre-details">
+
+    <div class="contenu-details">
+
+        <button class="fermer-details" onclick="fermerDetails()">
+            Fermer
+        </button>
+
+        <h2>Détails de la commande</h2>
+
+        <div id="informationsClient"></div>
+
+        <table class="table-details">
+
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+
+            <tbody id="listeDetails"></tbody>
+
+        </table>
+
+        <div id="resumeCommande" class="total-details"></div>
+
+    </div>
+
+</div>
+
+<!-- CONNEXION SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL = "https://oyzqzbpoesrjuopjyfkv.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_MrnJ7ePcX5bnqSQ-cQ9D5w_d-dLJX5v";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+let roleUtilisateur = "";
+
+
+// =================================
+// VERIFICATION DE LA CONNEXION
+// =================================
+
+async function verifierConnexion() {
+
+    const { data: sessionData } =
+        await supabaseClient.auth.getSession();
+
+    if (!sessionData.session) {
+        window.location.href = "admin.html";
+        return;
+    }
+
+    const { data: role, error } =
+        await supabaseClient.rpc("croquy_role");
+
+    if (
+        error ||
+        !["admin", "gestionnaire_ventes"].includes(role)
+    ) {
+        alert("Accès refusé.");
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href = "admin.html";
+
+        return;
+    }
+
+    roleUtilisateur = role;
+    
+    document.getElementById("formZone").style.display =
+    roleUtilisateur === "admin" ? "block" : "none";
+    document.getElementById("utilisateur").textContent =
+        "Connecté avec le rôle : " + role;
+
+ chargerZones();
+chargerCommandes();
+chargerProduits();
+
+}
+
+
+// =================================
+// AFFICHER LES ZONES
+// =================================
+
+async function chargerZones() {
+
+    const liste = document.getElementById("listeZones");
+
+    liste.innerHTML =
+        "<tr><td colspan='4'>Chargement...</td></tr>";
+
+    const { data: zones, error } = await supabaseClient
+        .from("zones_livraison")
+        .select("*")
+        .order("nom");
+
+    if (error) {
+
+        liste.innerHTML =
+            "<tr><td colspan='4'>Erreur : " +
+            error.message +
+            "</td></tr>";
+
+        return;
+    }
+
+    liste.innerHTML = "";
+
+    zones.forEach(function(zone) {
+
+       const ligne = document.createElement("tr");
+
+if (roleUtilisateur === "admin") {
+
+    ligne.innerHTML = `
+        <td>
+            <input type="text" value="${zone.nom}" id="nom-${zone.id}">
+        </td>
+
+        <td>
+            <input type="number" value="${zone.frais}" id="frais-${zone.id}" min="0">
+        </td>
+
+        <td>
+            <input type="checkbox" id="actif-${zone.id}" ${zone.actif ? "checked" : ""}>
+        </td>
+
+        <td>
+            <button onclick="modifierZone('${zone.id}')">Enregistrer</button>
+            <button onclick="supprimerZone('${zone.id}')">Supprimer</button>
+        </td>
+    `;
+
+} else {
+
+    ligne.innerHTML = `
+        <td>${zone.nom}</td>
+        <td>${zone.frais} FCFA</td>
+        <td>${zone.actif ? "Oui" : "Non"}</td>
+        <td>Lecture seule</td>
+    `;
+
+}
+
+liste.appendChild(ligne);
+
+    });
+
+}
+
+
+// =================================
+// AJOUTER UNE ZONE
+// =================================
+
+document.getElementById("formZone").addEventListener(
+    "submit",
+    async function(e) {
+
+        e.preventDefault();
+
+        const nom = document.getElementById("nomZone").value.trim();
+
+        const frais = Number(
+            document.getElementById("fraisZone").value
+        );
+
+        if (!nom || frais < 0) {
+            return;
+        }
+
+        const { error } = await supabaseClient
+            .from("zones_livraison")
+            .insert({
+                nom: nom,
+                frais: frais,
+                actif: true
+            });
+
+        if (error) {
+
+            alert("Erreur : " + error.message);
+
+            return;
+        }
+
+        alert("Zone ajoutée avec succès !");
+
+        this.reset();
+
+        chargerZones();
+
+    }
+);
+
+
+// =================================
+// MODIFIER UNE ZONE
+// =================================
+
+async function modifierZone(id) {
+
+    const nom = document.getElementById("nom-" + id).value.trim();
+
+    const frais = Number(
+        document.getElementById("frais-" + id).value
+    );
+
+    const actif = document.getElementById("actif-" + id).checked;
+
+    if (!nom || frais < 0) {
+
+        alert("Vérifie le nom et les frais.");
+
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("zones_livraison")
+        .update({
+            nom: nom,
+            frais: frais,
+            actif: actif
+        })
+        .eq("id", id);
+
+    if (error) {
+
+        alert("Erreur : " + error.message);
+
+
+        return;
+    }
+
+    alert("Zone modifiée avec succès !");
+
+    chargerZones();
+
+}
+
+
+// =================================
+// SUPPRIMER UNE ZONE
+// =================================
+
+async function supprimerZone(id) {
+
+    const confirmation = confirm(
+        "Attention ! Voulez-vous vraiment supprimer définitivement cette zone ?"
+    );
+
+    if (!confirmation) {
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("zones_livraison")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+        alert(
+            "Impossible de supprimer cette zone : " +
+            error.message
+        );
+
+        return;
+    }
+
+    alert("Zone supprimée avec succès !");
+
+    chargerZones();
+
+}
+
+// =================================
+// AJOUTER UN PRODUIT
+// =================================
+
+document.getElementById("formProduit").addEventListener(
+    "submit",
+    async function(e) {
+
+        e.preventDefault();
+
+        if (roleUtilisateur !== "admin") {
+            alert("Seul l'administrateur peut ajouter un produit.");
+            return;
+        }
+
+        const nom = document.getElementById("nomProduit").value.trim();
+        const reference = document.getElementById("referenceProduit").value.trim();
+        const prix = Number(document.getElementById("prixProduit").value);
+        const stock = Number(document.getElementById("stockProduit").value);
+        const description = document.getElementById("descriptionProduit").value.trim();
+
+        if (!nom || !reference || !description || prix < 0 || stock < 0) {
+            alert("Vérifie les informations du produit.");
+            return;
+        }
+
+        const { error } = await supabaseClient
+            .from("produits")
+            .insert({
+                nom: nom,
+                reference: reference,
+                description: description,
+                prix: prix,
+                stock: stock,
+                actif: true
+            });
+
+        if (error) {
+            alert("Erreur : " + error.message);
+            return;
+        }
+
+        alert("Produit ajouté avec succès !");
+
+        this.reset();
+
+        chargerProduits();
+
+    }
+);
+
+// =================================
+// AFFICHER LES PRODUITS
+// =================================
+
+async function chargerProduits() {
+
+    const liste = document.getElementById("listeProduits");
+
+    liste.innerHTML =
+        "<tr><td colspan='6'>Chargement des produits...</td></tr>";
+
+    const { data: produits, error } = await supabaseClient
+        .from("produits")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+        liste.innerHTML =
+            "<tr><td colspan='6'>Erreur : " +
+            error.message +
+            "</td></tr>";
+
+        return;
+    }
+
+    liste.innerHTML = "";
+
+    if (!produits || produits.length === 0) {
+
+        liste.innerHTML =
+            "<tr><td colspan='6'>Aucun produit enregistré.</td></tr>";
+
+        return;
+    }
+
+    produits.forEach(function(produit) {
+
+        const ligne = document.createElement("tr");
+
+        const valeurs = [
+            produit.nom,
+            produit.reference,
+            produit.prix + " FCFA",
+            produit.stock,
+            produit.actif ? "Oui" : "Non"
+        ];
+
+        valeurs.forEach(function(valeur) {
+
+            const cellule = document.createElement("td");
+
+            cellule.textContent = valeur ?? "";
+
+            ligne.appendChild(cellule);
+
+        });
+
+        const celluleAction = document.createElement("td");
+
+// Bouton modifier
+const boutonModifier = document.createElement("button");
+
+boutonModifier.textContent = "Modifier";
+
+boutonModifier.onclick = function() {
+    modifierProduit(produit.id, produit.prix, produit.stock);
+};
+
+celluleAction.appendChild(boutonModifier);
+
+// Bouton activer / désactiver
+const boutonEtat = document.createElement("button");
+
+boutonEtat.textContent = produit.actif ? "Désactiver" : "Activer";
+
+boutonEtat.onclick = function() {
+    changerEtatProduit(produit.id, produit.actif);
+};
+
+celluleAction.appendChild(boutonEtat);
+
+ligne.appendChild(celluleAction);
+        liste.appendChild(ligne);
+
+    });
+
+}
+
+// =================================
+// MODIFIER LE PRIX ET LE STOCK
+// =================================
+
+async function modifierProduit(id, ancienPrix, ancienStock) {
+
+    if (roleUtilisateur !== "admin") {
+        alert("Action réservée à l'administrateur.");
+        return;
+    }
+
+    const nouveauPrix = prompt("Nouveau prix en FCFA :", ancienPrix);
+
+    if (nouveauPrix === null) return;
+
+    const nouveauStock = prompt("Nouvelle quantité en stock :", ancienStock);
+
+    if (nouveauStock === null) return;
+
+    const prix = Number(nouveauPrix);
+    const stock = Number(nouveauStock);
+
+    if (
+        nouveauPrix.trim() === "" ||
+        nouveauStock.trim() === "" ||
+        !Number.isInteger(prix) ||
+        !Number.isInteger(stock) ||
+        prix < 0 ||
+        stock < 0
+    ) {
+        alert("Entre des nombres entiers positifs ou égaux à zéro.");
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("produits")
+        .update({
+            prix: prix,
+            stock: stock
+        })
+        .eq("id", id);
+
+    if (error) {
+        alert("Erreur : " + error.message);
+        return;
+    }
+
+    alert("Produit modifié avec succès !");
+
+    chargerProduits();
+}
+
+
+// =================================
+// ACTIVER OU DESACTIVER UN PRODUIT
+// =================================
+
+async function changerEtatProduit(id, etatActuel) {
+
+    if (roleUtilisateur !== "admin") {
+        alert("Action réservée à l'administrateur.");
+        return;
+    }
+
+    const nouvelEtat = !etatActuel;
+
+    const confirmation = confirm(
+        nouvelEtat
+            ? "Voulez-vous réactiver ce produit ?"
+            : "Voulez-vous désactiver ce produit ?"
+    );
+
+    if (!confirmation) return;
+
+    const { error } = await supabaseClient
+        .from("produits")
+        .update({ actif: nouvelEtat })
+        .eq("id", id);
+
+    if (error) {
+        alert("Erreur : " + error.message);
+        return;
+    }
+
+    alert("État du produit modifié !");
+
+    chargerProduits();
+}
+
+// =================================
+// AFFICHER LES COMMANDES
+// =================================
+
+async function chargerCommandes() {
+
+    const liste = document.getElementById("listeCommandes");
+
+    liste.innerHTML =
+        "<tr><td colspan='6'>Chargement...</td></tr>";
+
+    const { data: commandes, error } = await supabaseClient
+        .from("commandes")
+        .select("id, nom_client, telephone, adresse, total, statut")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+        liste.innerHTML =
+            "<tr><td colspan='6'>Erreur : " +
+            error.message +
+            "</td></tr>";
+
+        return;
+    }
+
+    liste.innerHTML = "";
+
+    if (!commandes || commandes.length === 0) {
+
+        liste.innerHTML =
+            "<tr><td colspan='6'>Aucune commande pour le moment.</td></tr>";
+
+        return;
+    }
+
+    commandes.forEach(function(commande) {
+
+        const ligne = document.createElement("tr");
+
+        // INFORMATIONS DU CLIENT
+
+        [
+            commande.nom_client,
+            commande.telephone,
+            commande.adresse,
+            commande.total + " FCFA"
+
+        ].forEach(function(valeur) {
+
+            const cellule = document.createElement("td");
+
+            cellule.textContent = valeur ?? "";
+
+            ligne.appendChild(cellule);
+
+        });
+
+
+        // COLONNE DU STATUT
+
+        const celluleStatut = document.createElement("td");
+
+        const choixStatut = document.createElement("select");
+
+        choixStatut.id = "statut-" + commande.id;
+
+        const statuts = [
+            "en_attente",
+            "confirmee",
+            "en_preparation",
+            "en_livraison",
+            "livree",
+            "annulee"
+        ];
+
+        statuts.forEach(function(statut) {
+
+            const option = document.createElement("option");
+
+            option.value = statut;
+
+            option.textContent = statut;
+
+            if (statut === commande.statut) {
+                option.selected = true;
+            }
+
+            choixStatut.appendChild(option);
+
+        });
+
+        celluleStatut.appendChild(choixStatut);
+
+        ligne.appendChild(celluleStatut);
+
+
+         // COLONNE ACTIONS
+
+        const celluleAction = document.createElement("td");
+
+        // Bouton mettre à jour
+        const bouton = document.createElement("button");
+
+        bouton.textContent = "Mettre à jour";
+
+        bouton.onclick = function() {
+            modifierStatut(commande.id);
+        };
+
+        celluleAction.appendChild(bouton);
+
+        // Bouton voir les détails
+        const boutonDetails = document.createElement("button");
+
+        boutonDetails.textContent = "Voir les détails";
+
+        boutonDetails.onclick = function() {
+            afficherDetailsCommande(commande.id);
+        };
+
+        celluleAction.appendChild(boutonDetails);
+
+        ligne.appendChild(celluleAction);
+
+        // Ajouter la commande au tableau
+        liste.appendChild(ligne);
+
+    });
+
+}
+
+// =================================
+// AFFICHER LES DETAILS D'UNE COMMANDE
+// =================================
+
+async function afficherDetailsCommande(id) {
+
+    const { data: commande, error: erreurCommande } =
+        await supabaseClient
+            .from("commandes")
+            .select("nom_client, telephone, adresse, sous_total, frais_livraison, total")
+            .eq("id", id)
+            .single();
+
+    if (erreurCommande) {
+        alert("Erreur commande : " + erreurCommande.message);
+        return;
+    }
+
+    const { data: produits, error: erreurDetails } =
+        await supabaseClient
+            .from("details_commandes")
+            .select("nom_produit, prix_unitaire, quantite, total_ligne")
+            .eq("commande_id", id);
+
+    if (erreurDetails) {
+        alert("Erreur détails : " + erreurDetails.message);
+        return;
+    }
+
+    if (!produits || produits.length === 0) {
+        alert("Aucun produit trouvé dans cette commande.");
+        return;
+    }
+
+    // INFORMATIONS DU CLIENT
+
+    document.getElementById("informationsClient").innerHTML = `
+        <p><strong>Client :</strong> ${commande.nom_client}</p>
+        <p><strong>Téléphone :</strong> ${commande.telephone}</p>
+        <p><strong>Adresse :</strong> ${commande.adresse}</p>
+    `;
+
+    // LISTE DES PRODUITS
+
+    const liste = document.getElementById("listeDetails");
+
+    liste.innerHTML = "";
+
+    produits.forEach(function(produit) {
+
+        const ligne = document.createElement("tr");
+
+        ligne.innerHTML = `
+            <td>${produit.nom_produit}</td>
+            <td>${produit.prix_unitaire} F</td>
+            <td>${produit.quantite}</td>
+            <td>${produit.total_ligne} F</td>
+        `;
+
+        liste.appendChild(ligne);
+
+    });
+
+    // RESUME DE LA COMMANDE
+
+    document.getElementById("resumeCommande").innerHTML = `
+        <p>Sous-total : ${commande.sous_total} FCFA</p>
+        <p>Livraison : ${commande.frais_livraison} FCFA</p>
+        <h3>Total à payer : ${commande.total} FCFA</h3>
+    `;
+
+    // OUVRIR LA FENETRE
+
+    document.getElementById("fenetreDetails").style.display = "flex";
+
+}
+
+
+// =================================
+// FERMER LES DETAILS
+// =================================
+
+function fermerDetails() {
+
+    document.getElementById("fenetreDetails").style.display = "none";
+
+}
+
+// =================================
+// MODIFIER LE STATUT D'UNE COMMANDE
+// =================================
+
+async function modifierStatut(id) {
+
+    const nouveauStatut = document.getElementById(
+        "statut-" + id
+    ).value;
+
+    const { error } = await supabaseClient
+        .from("commandes")
+        .update({
+            statut: nouveauStatut
+        })
+        .eq("id", id);
+
+    if (error) {
+
+        alert("Erreur : " + error.message);
+
+        return;
+    }
+
+    alert("Statut de la commande modifié avec succès !");
+
+    chargerCommandes();
+
+}
+
+
+// =================================
+// DECONNEXION
+// =================================
+
+async function deconnexion() {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href = "admin.html";
+
+}
+
+
+// =================================
+// LANCER LE TABLEAU DE BORD
+// =================================
+
+verifierConnexion();
+
+</script>
+
+</body>
+</html>
