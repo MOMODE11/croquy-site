@@ -53,7 +53,12 @@
                 return;
             }
 
-            message.textContent = "Connexion réussie ! Bienvenue dans CROQUY.";
+           message.textContent = "Connexion réussie ! Bienvenue dans CROQUY.";
+
+setTimeout(() => {
+    window.location.href = "dashboard.html";
+}, 1000);
+            
         });
     </script>
 
