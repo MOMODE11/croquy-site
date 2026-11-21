@@ -1,6 +1,3 @@
-Remplace entièrement le contenu de ton fichier `script.js` par ce code :
-
-```javascript
 // ==========================================
 // CONFIGURATION SUPABASE
 // ==========================================
