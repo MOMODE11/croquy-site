@@ -606,4 +606,3 @@ document.addEventListener("DOMContentLoaded", async function() {
     afficherPanier();
 
 });
-```
