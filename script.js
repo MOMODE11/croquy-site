@@ -134,9 +134,22 @@ async function chargerZonesLivraison() {
 
         Object.keys(idsZones).forEach(function(code) {
 
-            if (idsZones[code] === zone.id) {
-                fraisZones[code] = Number(zone.frais);
-            }
+           if (idsZones[code] === zone.id) {
+
+    fraisZones[code] = Number(zone.frais);
+
+    const selectZone = document.getElementById("zone-livraison");
+
+    const option = selectZone?.querySelector(
+        'option[value="' + code + '"]'
+    );
+
+    if (option) {
+        option.textContent = zone.nom + " — " +
+            Number(zone.frais).toLocaleString("fr-FR") + " FCFA";
+    }
+}
+
 
         });
 
