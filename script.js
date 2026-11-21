@@ -1,3 +1,4 @@
+
 // ==========================================
 // CONFIGURATION SUPABASE
 // ==========================================
@@ -5,7 +6,7 @@
 const SUPABASE_URL = "https://oyzqzbpoesrjuopjyfkv.supabase.co";
 
 // Remplace cette valeur par ta clé Publishable ACTUELLE
-const SUPABASE_KEY = "COLLE_ICI_TA_CLE_SB_PUBLISHABLE";
+const SUPABASE_KEY = "sb_publishable_MrnJ7ePcX5bnqSQ-cQ9D5w_d-dLJX5v"
 
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
